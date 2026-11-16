@@ -1,0 +1,105 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Design tokens. Dark values follow the Quantum Heaps palette; light mode mirrors the hierarchy. */
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --elevated: #eceff4;
+  --line: #e0e3e9;
+  --fg: #0b0d12;
+  --fg-muted: #5d6472;
+  --accent: #457fff;
+  --accent-strong: #2c66ea;
+  --highlight: #b86b14;
+  --bubble-in: #ffffff;
+  --bubble-out: #e6edff;
+  --online: #16a34a;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #000000;
+  --surface: #141414;
+  --elevated: #1f242e;
+  --line: #30343b;
+  --fg: #ffffff;
+  --fg-muted: #a0a0a0;
+  --accent: #457fff;
+  --accent-strong: #6b9aff;
+  --highlight: #efa758;
+  --bubble-in: #141414;
+  --bubble-out: #0f1a33;
+  --online: #22c55e;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-highlight: var(--highlight);
+  --color-bubble-in: var(--bubble-in);
+  --color-bubble-out: var(--bubble-out);
+  --color-online: var(--online);
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Funnel Display', 'DM Sans', ui-sans-serif, sans-serif;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-bg text-fg font-sans antialiased overflow-hidden;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  mark {
+    @apply rounded-sm bg-highlight/35 text-inherit;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+  }
+  dialog::backdrop {
+    background: rgb(0 0 0 / 0.6);
+  }
+}
+
+@keyframes typing-dot {
+  0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-2px); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@utility animate-typing-dot {
+  animation: typing-dot 1.2s infinite ease-in-out;
+}
+
+@utility animate-slide-up {
+  animation: slide-up 0.18s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
